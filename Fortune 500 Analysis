@@ -66,4 +66,25 @@ WHEN paid_time_off_days>=10 THEN "Average PTO"
 ELSE "Poor" 
 END AS pto_policy
 FROM fortune_companies
-ORDER BY paid_time_off_days asc;
+ORDER BY paid_time_off_days asc
+;
+
+-- Which industries have an average revenue of at least $200 Billion and what are their avg revenues?
+SELECT industry, ROUND(AVG(revenue),1) AS avg_revenue_billions
+FROM fortune_companies
+GROUP BY industry
+HAVING avg_revenue_billions>=200
+;
+
+-- Which companies have healthcare benefits and at least 12 weeks of maternity leave?
+SELECT company_name
+FROM fortune_companies
+WHERE healthcare_benefits=1
+AND maternity_leave_weeks>=12
+;
+
+--Which company in the Technology Industry has the least revenue and what's their revenue?
+SELECT company_name, min(revenue)
+FROM fortune_companies
+WHERE industry = 'Technology'
+;
